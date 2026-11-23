@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Best Fit · Card Match</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-step="5">
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="wordmark" href="index.html">Card Match</a>
+      <span class="wordmark__note">a student concept</span>
+    </div>
+  </header>
+
+  <main class="page">
+    <ol class="stepper" id="stepper" aria-label="Progress"></ol>
+
+    <div class="step-head">
+      <a class="back" data-back href="#">
+        <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Back
+      </a>
+      <p class="step-head__label">Step 5: Best Fit</p>
+      <span></span>
+    </div>
+    <h1 class="title">Your best fit</h1>
+    <p class="lede" id="bf-lede">Here’s the card that best matches what you told us.</p>
+    <div class="decision"><span class="decision__badge" id="decision">
+      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Decision made</span></div>
+
+    <section class="content bestfit" id="bestfit" aria-label="Your best fit card"></section>
+  </main>
+
+  <footer class="page-footer page-footer--bestfit">
+    <div class="bf-actions">
+      <button class="btn btn--secondary" type="button" id="save-pick">
+        <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M10 16.5s-6-3.6-6-8.1A3.4 3.4 0 0110 6.3a3.4 3.4 0 016 2.1c0 4.5-6 8.1-6 8.1z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        <span data-label>Save my pick</span>
+      </button>
+      <a class="btn btn--primary" id="apply" href="#" target="_blank" rel="noopener">Apply now
+        <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M8 4h8v8M16 4L6 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="sr-only">(opens the card’s page on chase.com in a new tab)</span></a>
+    </div>
+    <a href="#" class="start-over" data-start-over>Start over</a>
+    <p class="disclaimer">Student project for IDMT380. Not affiliated with or endorsed by JPMorgan Chase. Card details as of Nov 2026.</p>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/scoring.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/pages/best-fit.js"></script>
+</body>
+</html>

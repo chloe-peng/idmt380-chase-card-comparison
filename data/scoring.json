@@ -1,0 +1,384 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-11-23",
+  "notes": [
+    "All weights live here; js/scoring.js is a generic engine that reads this file plus data/cards.json.",
+    "A rule fires when every key in its `when` matches the stored answers. A value can be a single option id, an array of ids, or null (null = question skipped).",
+    "Points with a tag become 'Matched on' chips. Negative points (guardrails) never create a tag.",
+    "Run `node tests/scoring.test.js` after any change: it walks all 3,200 answer paths."
+  ],
+
+  "storage": {
+    "key": "cardmatch:answers:v1",
+    "scope": "sessionStorage",
+    "note": "Answers persist across Back and refresh within the tab. 'Start over' clears them. Stored answers from another schemaVersion are discarded. 'Save my pick' still stores nothing."
+  },
+
+  "questions": [
+    {
+      "id": "hasCard",
+      "step": 1,
+      "prompt": "Do you already have a Chase card?",
+      "required": true,
+      "options": [
+        { "id": "no", "label": "No, I don't" },
+        { "id": "yes", "label": "Yes, I do", "reveals": "ownedCard" }
+      ]
+    },
+    {
+      "id": "ownedCard",
+      "step": 1,
+      "prompt": "What card do you have?",
+      "requiredWhen": { "hasCard": "yes" },
+      "optionsFrom": "cards.json#ownedCardOptions"
+    },
+    {
+      "id": "goal",
+      "step": 2,
+      "number": "01",
+      "prompt": "What's your main goal?",
+      "skippable": true,
+      "options": [
+        { "id": "build-credit", "label": "Build credit" },
+        { "id": "cash-back", "label": "Cash back" },
+        { "id": "travel", "label": "Travel rewards" },
+        { "id": "big-purchase", "label": "Paying off a big purchase" }
+      ]
+    },
+    {
+      "id": "spend",
+      "step": 2,
+      "number": "02",
+      "prompt": "Where do you spend the most?",
+      "skippable": true,
+      "options": [
+        { "id": "dining", "label": "Dining" },
+        { "id": "groceries", "label": "Groceries" },
+        { "id": "travel", "label": "Travel" },
+        { "id": "everything", "label": "A bit of everything" }
+      ]
+    },
+    {
+      "id": "payFull",
+      "step": 2,
+      "number": "03",
+      "prompt": "Do you usually pay your full balance each month?",
+      "skippable": true,
+      "options": [
+        { "id": "always", "label": "Always" },
+        { "id": "sometimes", "label": "Sometimes" },
+        { "id": "rarely", "label": "Rarely / not sure" }
+      ]
+    },
+    {
+      "id": "fee",
+      "step": 2,
+      "number": "04",
+      "prompt": "How do you feel about an annual fee?",
+      "skippable": true,
+      "options": [
+        { "id": "none", "label": "No fee, please" },
+        { "id": "small", "label": "Small fee is fine, if it's worth it" },
+        { "id": "higher", "label": "Higher fee is fine for premium perks" }
+      ]
+    }
+  ],
+
+  "tags": {
+    "build-credit":    { "label": "Build credit" },
+    "cash-back":       { "label": "Cash back" },
+    "travel-rewards":  { "label": "Travel rewards" },
+    "chase-travel":    { "label": "5% on Chase Travel" },
+    "intro-apr":       { "label": "0% intro APR for {introApr.months} months" },
+    "dining":          { "label": "Dining rewards" },
+    "groceries":       { "label": "Grocery rewards" },
+    "everyday":        { "label": "Everyday spend" },
+    "flat-cash-back":  { "label": "Simple flat cash back" },
+    "pays-in-full":    { "label": "Great if you pay in full" },
+    "fits-fee":        { "label": "Fee fits your budget" },
+    "premium-perks":   { "label": "Premium perks" },
+    "next-step":       { "label": "Next step up from Rise" },
+    "pairs-freedom":   { "label": "Pairs with your Freedom card" },
+    "pairs-sapphire":  { "label": "Pairs with your Sapphire card" },
+    "no-annual-fee":   { "label": "No annual fee", "fixed": true },
+    "no-ftf":          { "label": "No foreign transaction fees", "fixed": true }
+  },
+
+  "filters": [
+    {
+      "id": "fee-none",
+      "when": { "fee": "none" },
+      "remove": ["sapphire-preferred", "sapphire-reserve"],
+      "reason": "Has an annual fee"
+    },
+    {
+      "id": "fee-small",
+      "when": { "fee": "small" },
+      "remove": ["sapphire-reserve"],
+      "reason": "Annual fee is above a small fee"
+    },
+    {
+      "id": "owned",
+      "removeOwnedCard": true,
+      "reason": "You already have this card"
+    }
+  ],
+
+  "rules": [
+    { "id": "goal-build-credit", "when": { "goal": "build-credit" }, "points": [
+      { "card": "freedom-rise", "pts": 4, "tag": "build-credit" },
+      { "card": "freedom-unlimited", "pts": 1, "tag": "flat-cash-back" }
+    ]},
+    { "id": "goal-cash-back", "when": { "goal": "cash-back" }, "points": [
+      { "card": "freedom-unlimited", "pts": 3, "tag": "cash-back" },
+      { "card": "freedom-flex", "pts": 3, "tag": "cash-back" },
+      { "card": "freedom-rise", "pts": 2, "tag": "cash-back" }
+    ]},
+    { "id": "goal-travel", "when": { "goal": "travel" }, "points": [
+      { "card": "sapphire-preferred", "pts": 4, "tag": "travel-rewards" },
+      { "card": "sapphire-reserve", "pts": 4, "tag": "travel-rewards" },
+      { "card": "freedom-unlimited", "pts": 1, "tag": "chase-travel" },
+      { "card": "freedom-flex", "pts": 1, "tag": "chase-travel" }
+    ]},
+    { "id": "goal-big-purchase", "when": { "goal": "big-purchase" }, "points": [
+      { "card": "slate", "pts": 4, "tag": "intro-apr" },
+      { "card": "freedom-unlimited", "pts": 2, "tag": "intro-apr" },
+      { "card": "freedom-flex", "pts": 2, "tag": "intro-apr" }
+    ]},
+
+    { "id": "spend-dining", "when": { "spend": "dining" }, "points": [
+      { "card": "freedom-unlimited", "pts": 2, "tag": "dining" },
+      { "card": "freedom-flex", "pts": 2, "tag": "dining" },
+      { "card": "sapphire-preferred", "pts": 2, "tag": "dining" },
+      { "card": "sapphire-reserve", "pts": 2, "tag": "dining" }
+    ]},
+    { "id": "spend-groceries", "when": { "spend": "groceries" }, "points": [
+      { "card": "sapphire-preferred", "pts": 2, "tag": "groceries" },
+      { "card": "freedom-flex", "pts": 1, "tag": "groceries" },
+      { "card": "freedom-unlimited", "pts": 1, "tag": "groceries" }
+    ]},
+    { "id": "spend-travel", "when": { "spend": "travel" }, "points": [
+      { "card": "sapphire-reserve", "pts": 3, "tag": "travel-rewards" },
+      { "card": "sapphire-preferred", "pts": 2, "tag": "travel-rewards" }
+    ]},
+    { "id": "spend-everything", "when": { "spend": "everything" }, "points": [
+      { "card": "freedom-unlimited", "pts": 2, "tag": "everyday" },
+      { "card": "freedom-rise", "pts": 2, "tag": "everyday" },
+      { "card": "freedom-flex", "pts": 1, "tag": "everyday" }
+    ]},
+
+    { "id": "pay-always", "when": { "payFull": "always" }, "points": [
+      { "card": "sapphire-preferred", "pts": 1, "tag": "pays-in-full" },
+      { "card": "sapphire-reserve", "pts": 1, "tag": "pays-in-full" },
+      { "card": "freedom-flex", "pts": 1, "tag": "pays-in-full" }
+    ]},
+    { "id": "pay-sometimes", "when": { "payFull": "sometimes" }, "points": [
+      { "card": "freedom-unlimited", "pts": 1, "tag": "intro-apr" },
+      { "card": "slate", "pts": 1, "tag": "intro-apr" }
+    ]},
+    { "id": "pay-rarely", "when": { "payFull": "rarely" }, "points": [
+      { "card": "slate", "pts": 3, "tag": "intro-apr" },
+      { "card": "freedom-unlimited", "pts": 1, "tag": "intro-apr" },
+      { "card": "freedom-flex", "pts": 1, "tag": "intro-apr" },
+      { "card": "sapphire-preferred", "pts": -1 },
+      { "card": "sapphire-reserve", "pts": -3 }
+    ]},
+
+    { "id": "fee-small", "when": { "fee": "small" }, "points": [
+      { "card": "sapphire-preferred", "pts": 1, "tag": "fits-fee" }
+    ]},
+    { "id": "fee-higher", "when": { "fee": "higher" }, "points": [
+      { "card": "sapphire-reserve", "pts": 2, "tag": "premium-perks" },
+      { "card": "sapphire-preferred", "pts": 1, "tag": "fits-fee" }
+    ]},
+
+    { "id": "owned-rise", "when": { "ownedCard": "freedom-rise" }, "points": [
+      { "card": "freedom-unlimited", "pts": 2, "tag": "next-step" }
+    ]},
+    { "id": "owned-freedom", "when": { "ownedCard": ["freedom-unlimited", "freedom-flex", "freedom-rise"] }, "points": [
+      { "card": "sapphire-preferred", "pts": 2, "tag": "pairs-freedom" }
+    ]},
+    { "id": "owned-sapphire", "when": { "ownedCard": ["sapphire-preferred", "sapphire-reserve"] }, "points": [
+      { "card": "freedom-unlimited", "pts": 2, "tag": "pairs-sapphire" },
+      { "card": "freedom-flex", "pts": 2, "tag": "pairs-sapphire" }
+    ]}
+  ],
+
+  "guardrails": {
+    "penalties": [
+      {
+        "id": "credit-level",
+        "why": "Someone building credit is unlikely to be approved for a card that needs good to excellent credit.",
+        "when": { "goal": "build-credit" },
+        "points": [
+          { "card": "sapphire-preferred", "pts": -3 },
+          { "card": "sapphire-reserve", "pts": -4 }
+        ]
+      },
+      {
+        "id": "premium-fee-unconfirmed",
+        "why": "Don't put a $795 card at #1 for someone who never said a high fee is OK.",
+        "when": { "fee": null },
+        "points": [
+          { "card": "sapphire-reserve", "pts": -2 }
+        ]
+      }
+    ],
+    "anchors": [
+      {
+        "id": "build-credit-needs-rise",
+        "why": "If the goal is building credit, the starter card must be on the shortlist.",
+        "when": { "goal": "build-credit" },
+        "mustInclude": ["freedom-rise"]
+      },
+      {
+        "id": "big-purchase-needs-slate",
+        "why": "If the goal is paying off a big purchase, the longest 0% intro APR must be on the shortlist.",
+        "when": { "goal": "big-purchase" },
+        "mustInclude": ["slate"]
+      },
+      {
+        "id": "travel-needs-sapphire",
+        "why": "If the goal is travel and a Sapphire card is still in play, show at least one.",
+        "when": { "goal": "travel" },
+        "mustIncludeAnyOf": ["sapphire-preferred", "sapphire-reserve"]
+      },
+      {
+        "id": "carry-balance-needs-intro-apr",
+        "why": "Someone who rarely pays in full should always see at least one 0% intro APR card.",
+        "when": { "payFull": "rarely" },
+        "mustIncludeAnyOf": ["slate", "freedom-unlimited", "freedom-flex"]
+      }
+    ],
+    "notFirst": [
+      {
+        "id": "reserve-needs-fee-ok",
+        "why": "Sapphire Reserve ($795) can be shortlisted, but only takes #1 when the user said a higher fee is fine.",
+        "cards": ["sapphire-reserve"],
+        "unless": { "fee": "higher" }
+      },
+      {
+        "id": "reserve-carry-balance",
+        "why": "A premium fee plus interest is a poor #1 for someone who rarely pays in full.",
+        "cards": ["sapphire-reserve"],
+        "when": { "payFull": "rarely" }
+      },
+      {
+        "id": "no-sapphire-first-when-building-credit",
+        "why": "Sapphire cards need good to excellent credit.",
+        "cards": ["sapphire-preferred", "sapphire-reserve"],
+        "when": { "goal": "build-credit" }
+      }
+    ],
+    "invariants": [
+      "Every result has exactly 3 unique cards.",
+      "Filtered and owned cards never appear.",
+      "Sapphire Reserve is #1 only when the user chose 'Higher fee is fine'.",
+      "No Sapphire card is #1 when the goal is 'Build credit'.",
+      "Sapphire Reserve is never #1 when the user rarely pays in full.",
+      "Every card has 1 to 3 tags; tags come only from positive points or true fixed facts.",
+      "A card with no rewards program (Slate) never gets a rewards tag.",
+      "Every card can be #1 on at least one path, including with no owned card."
+    ]
+  },
+
+  "fixedTags": [
+    {
+      "tag": "no-annual-fee",
+      "test": { "field": "annualFee", "equals": 0 },
+      "weight": 0.5,
+      "weightWhen": [{ "when": { "fee": "none" }, "weight": 3 }]
+    },
+    {
+      "tag": "no-ftf",
+      "test": { "field": "foreignTxFee", "equals": 0 },
+      "skipIfNeedsCheck": true,
+      "weight": 0.5,
+      "weightWhen": [
+        { "when": { "goal": "travel" }, "weight": 2 },
+        { "when": { "spend": "travel" }, "weight": 2 }
+      ]
+    }
+  ],
+
+  "rewardTags": ["cash-back", "travel-rewards", "chase-travel", "dining", "groceries", "everyday", "flat-cash-back", "pays-in-full"],
+
+  "ranking": {
+    "shortlistSize": 3,
+    "maxTags": 3,
+    "tieBreak": ["score desc", "annualFee asc", "fixedOrder"],
+    "fixedOrder": ["freedom-unlimited", "sapphire-preferred", "freedom-flex", "freedom-rise", "slate", "sapphire-reserve"],
+    "allSkipped": {
+      "when": "goal, spend, payFull and fee are all skipped",
+      "tieBreak": ["score desc", "fixedOrder"],
+      "note": "Skips the fee tie-break so the default top 3 is Freedom Unlimited, Sapphire Preferred, Freedom Flex (filters still applied)."
+    }
+  },
+
+  "cautions": [
+    {
+      "id": "carry-balance-no-intro",
+      "when": { "payFull": "rarely" },
+      "cardTest": { "field": "introApr", "equals": null },
+      "text": "If you carry a balance, interest ({apr.label}) can cost more than the rewards you earn."
+    },
+    {
+      "id": "credit-level-high",
+      "when": { "goal": "build-credit" },
+      "cardTest": { "field": "creditLevel", "equals": "good-excellent" },
+      "text": "Usually needs good to excellent credit to be approved."
+    },
+    {
+      "id": "high-fee",
+      "cardTest": { "field": "annualFee", "gte": 500 },
+      "text": "The ${annualFee} annual fee only pays off if you use the travel and dining credits."
+    },
+    {
+      "id": "online-grocery",
+      "when": { "spend": "groceries" },
+      "cards": ["sapphire-preferred"],
+      "text": "3x on groceries applies to online grocery orders; in-store groceries earn 1x."
+    },
+    {
+      "id": "rotating-activation",
+      "cards": ["freedom-flex"],
+      "text": "The 5% categories change each quarter and must be activated, up to $1,500 in purchases."
+    },
+    {
+      "id": "unconfirmed-field",
+      "cardTest": { "field": "needsCheck", "nonEmpty": true },
+      "text": "Some details couldn't be confirmed on chase.com. Check before applying."
+    }
+  ],
+
+  "notices": [
+    {
+      "id": "travel-no-fee",
+      "when": { "goal": "travel", "fee": "none" },
+      "text": "The travel cards with the biggest perks have an annual fee, so they're out. Freedom cards still earn 5% on travel booked through Chase Travel."
+    },
+    {
+      "id": "travel-spend-no-fee",
+      "when": { "spend": "travel", "fee": "none", "goal": ["build-credit", "cash-back", "big-purchase", null] },
+      "text": "You spend most on travel, but the top travel cards have an annual fee. These no-fee picks are the next best fit."
+    },
+    {
+      "id": "build-credit-premium",
+      "when": { "goal": "build-credit", "fee": ["small", "higher"] },
+      "text": "Cards with annual fees usually need good to excellent credit, so we kept starter-friendly cards near the top."
+    },
+    {
+      "id": "all-skipped",
+      "when": { "goal": null, "spend": null, "payFull": null, "fee": null },
+      "text": "You skipped the questions, so here are our most popular all-rounders. Answer a few to sharpen your matches."
+    }
+  ],
+
+  "compare": {
+    "rows": ["annualFee", "topCategory", "everything", "apr", "foreignTxFee"],
+    "topCategoryFromSpend": { "dining": "dining", "groceries": "groceries", "travel": "travel", "everything": "everything", "_skipped": "everything" },
+    "introAprMode": [{ "goal": "big-purchase" }, { "payFull": "rarely" }],
+    "nullValueLoses": true,
+    "tieShowsNoBadge": true
+  }
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Priorities · Card Match</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-step="2">
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="wordmark" href="index.html">Card Match</a>
+      <span class="wordmark__note">a student concept</span>
+    </div>
+  </header>
+
+  <main class="page">
+    <ol class="stepper" id="stepper" aria-label="Progress"></ol>
+
+    <div class="step-head">
+      <a class="back" data-back href="#">
+        <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Back
+      </a>
+      <p class="step-head__label">Step 2: Priorities</p>
+      <span></span>
+    </div>
+    <h1 class="title">What matters the most to you?</h1>
+    <p class="lede">Pick one answer for each question. Not sure? Skip it, or click your answer again to clear it.</p>
+
+    <div class="in-play" id="in-play" aria-live="polite">
+      <span class="in-play__icon" aria-hidden="true"></span>
+      <span><strong data-count>6</strong> of <span data-total>6</span> cards in play</span>
+    </div>
+    <form class="content questions" id="priorities" onsubmit="return false"></form>
+  </main>
+
+  <footer class="page-footer">
+    <button class="btn btn--primary" type="button" data-continue disabled>Continue <svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><path d="M4 10h12m-5-5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <p class="disclaimer">Student project for IDMT380. Not affiliated with or endorsed by JPMorgan Chase. Card details as of Nov 2026.</p>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/scoring.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/pages/priorities.js"></script>
+</body>
+</html>

@@ -1,0 +1,378 @@
+{
+  "meta": {
+    "asOf": "2026-11-23",
+    "source": "creditcards.chase.com product pages",
+    "pointValueCents": 1,
+    "note": "Student concept prototype. Offers and APRs change often; confirm before presenting. Fields listed in needsCheck could not be confirmed on the product page. Foreign transaction fees (3%) for Freedom Unlimited, Freedom Flex and Slate confirmed by Chloe 2026-11-23.",
+    "pointValueNote": "Ultimate Rewards points = 1 cent each for cash back. Scoring uses the base 1 cent for every card; Points Boost values are shown as context only, not used in scoring."
+  },
+  "cards": [
+    {
+      "id": "freedom-rise",
+      "name": "Chase Freedom Rise",
+      "family": "Freedom",
+      "tagline": "A simple starter card for building credit.",
+      "bestFor": "New to credit and students",
+      "annualFee": 0,
+      "rewardType": "cash back (earned as Ultimate Rewards points)",
+      "earn": {
+        "dining": {
+          "value": 1.5,
+          "label": "1.5% cash back"
+        },
+        "groceries": {
+          "value": 1.5,
+          "label": "1.5% cash back"
+        },
+        "travel": {
+          "value": 1.5,
+          "label": "1.5% cash back"
+        },
+        "everything": {
+          "value": 1.5,
+          "label": "1.5% cash back"
+        }
+      },
+      "introApr": null,
+      "apr": {
+        "min": 18.49,
+        "max": 27.99,
+        "label": "18.49%–27.99% variable"
+      },
+      "foreignTxFee": 3,
+      "welcomeOffer": "$25 for enrolling in automatic payments",
+      "creditLevel": "new",
+      "perks": [
+        "Designed for people new to credit",
+        "Having $250+ in a Chase account improves approval odds",
+        "Cash back never expires while the account is open"
+      ],
+      "art": {
+        "base": "#5FA8D3",
+        "accent": "#CDE7F5"
+      },
+      "image": "img/cards/freedom_rise_alt_card2.png",
+      "productUrl": "https://creditcards.chase.com/cash-back-credit-cards/freedom/rise",
+      "needsCheck": [],
+      "pointValue": {
+        "baseCents": 1,
+        "boostMaxCents": null,
+        "label": "1¢ per point"
+      }
+    },
+    {
+      "id": "freedom-unlimited",
+      "name": "Chase Freedom Unlimited",
+      "family": "Freedom",
+      "tagline": "Everyday cash back with extra dining rewards.",
+      "bestFor": "All-around cash back",
+      "annualFee": 0,
+      "rewardType": "cash back (earned as Ultimate Rewards points)",
+      "earn": {
+        "dining": {
+          "value": 3,
+          "label": "3% cash back"
+        },
+        "groceries": {
+          "value": 1.5,
+          "label": "1.5% cash back"
+        },
+        "travel": {
+          "value": 1.5,
+          "label": "1.5% (5% via Chase Travel)"
+        },
+        "everything": {
+          "value": 1.5,
+          "label": "1.5% cash back"
+        }
+      },
+      "introApr": {
+        "months": 15,
+        "appliesTo": "purchases and balance transfers",
+        "label": "0% intro APR for 15 months"
+      },
+      "apr": {
+        "min": 18.49,
+        "max": 27.99,
+        "label": "18.49%–27.99% variable"
+      },
+      "foreignTxFee": 3,
+      "welcomeOffer": "$200 bonus after $500 in purchases in the first 3 months",
+      "creditLevel": "good",
+      "perks": [
+        "3% on dining and drugstores",
+        "5% on travel booked through Chase Travel",
+        "0% intro APR for 15 months"
+      ],
+      "art": {
+        "base": "#1F5FA8",
+        "accent": "#7FB2E5"
+      },
+      "image": "img/cards/freedom_unlimited_card_alt.png",
+      "productUrl": "https://creditcards.chase.com/cash-back-credit-cards/freedom/unlimited",
+      "needsCheck": [],
+      "pointValue": {
+        "baseCents": 1,
+        "boostMaxCents": null,
+        "label": "1¢ per point"
+      }
+    },
+    {
+      "id": "freedom-flex",
+      "name": "Chase Freedom Flex",
+      "family": "Freedom",
+      "tagline": "Bonus cash back that rotates every quarter.",
+      "bestFor": "Bonus-category cash back",
+      "annualFee": 0,
+      "rewardType": "cash back (earned as Ultimate Rewards points)",
+      "earn": {
+        "dining": {
+          "value": 3,
+          "label": "3% cash back"
+        },
+        "groceries": {
+          "value": 1,
+          "label": "1% (5% when a bonus category)"
+        },
+        "travel": {
+          "value": 1,
+          "label": "1% (5% via Chase Travel)"
+        },
+        "everything": {
+          "value": 1,
+          "label": "1% cash back"
+        }
+      },
+      "rotating": {
+        "rate": 5,
+        "quarterlyCap": 1500,
+        "label": "5% on rotating categories you activate each quarter, up to $1,500"
+      },
+      "introApr": {
+        "months": 15,
+        "appliesTo": "purchases and balance transfers",
+        "label": "0% intro APR for 15 months"
+      },
+      "apr": {
+        "min": 18.49,
+        "max": 27.99,
+        "label": "18.49%–27.99% variable"
+      },
+      "foreignTxFee": 3,
+      "welcomeOffer": "$200 bonus",
+      "creditLevel": "good",
+      "perks": [
+        "5% on quarterly categories you activate",
+        "3% on dining and drugstores",
+        "0% intro APR for 15 months"
+      ],
+      "art": {
+        "base": "#0E7C86",
+        "accent": "#7FD1D6"
+      },
+      "image": "img/cards/freedom_flex_card.png",
+      "productUrl": "https://creditcards.chase.com/cash-back-credit-cards/freedom/flex",
+      "needsCheck": [
+        "welcomeOffer spend requirement"
+      ],
+      "pointValue": {
+        "baseCents": 1,
+        "boostMaxCents": null,
+        "label": "1¢ per point"
+      }
+    },
+    {
+      "id": "sapphire-preferred",
+      "name": "Chase Sapphire Preferred",
+      "family": "Sapphire",
+      "tagline": "Flexible travel rewards and useful trip benefits.",
+      "bestFor": "Travel rewards",
+      "annualFee": 95,
+      "rewardType": "points",
+      "earn": {
+        "dining": {
+          "value": 3,
+          "label": "3x points"
+        },
+        "groceries": {
+          "value": 3,
+          "label": "3x points (online grocery)"
+        },
+        "travel": {
+          "value": 2,
+          "label": "2x points (5x via Chase Travel)"
+        },
+        "everything": {
+          "value": 1,
+          "label": "1x points"
+        }
+      },
+      "introApr": null,
+      "apr": {
+        "min": 19.49,
+        "max": 27.74,
+        "label": "19.49%–27.74% variable"
+      },
+      "foreignTxFee": 0,
+      "welcomeOffer": "75,000 points after $5,000 in purchases in the first 3 months",
+      "creditLevel": "good-excellent",
+      "perks": [
+        "$100 annual Chase Travel hotel credit",
+        "Trip cancellation, baggage delay and rental car coverage",
+        "Transfer points to airline and hotel partners"
+      ],
+      "art": {
+        "base": "#14294F",
+        "accent": "#5B7BB5"
+      },
+      "image": "img/cards/sapphire-preferredcard2026.png",
+      "productUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred",
+      "needsCheck": [],
+      "pointValue": {
+        "baseCents": 1,
+        "boostMaxCents": 1.5,
+        "label": "1¢ per point (up to 1.5¢ with eligible Chase Travel Points Boost offers)"
+      }
+    },
+    {
+      "id": "sapphire-reserve",
+      "name": "Chase Sapphire Reserve",
+      "family": "Sapphire",
+      "tagline": "Premium travel perks for frequent travelers.",
+      "bestFor": "Premium travel rewards",
+      "annualFee": 795,
+      "rewardType": "points",
+      "earn": {
+        "dining": {
+          "value": 3,
+          "label": "3x points"
+        },
+        "groceries": {
+          "value": 1,
+          "label": "1x points"
+        },
+        "travel": {
+          "value": 4,
+          "label": "4x points (8x via Chase Travel)"
+        },
+        "everything": {
+          "value": 1,
+          "label": "1x points"
+        }
+      },
+      "introApr": null,
+      "apr": {
+        "min": 19.74,
+        "max": 28.24,
+        "label": "19.74%–28.24% variable"
+      },
+      "foreignTxFee": 0,
+      "welcomeOffer": "100,000 points after $6,000 in purchases in the first 3 months",
+      "creditLevel": "good-excellent",
+      "perks": [
+        "$300 annual travel credit",
+        "Airport lounge access (Sapphire Lounges and Priority Pass)",
+        "$300 annual dining credit at select OpenTable restaurants"
+      ],
+      "art": {
+        "base": "#1A1D24",
+        "accent": "#6B7280"
+      },
+      "image": "img/cards/sapphire_reserve_card_Halo.png",
+      "productUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve",
+      "needsCheck": [],
+      "pointValue": {
+        "baseCents": 1,
+        "boostMaxCents": 2,
+        "label": "1¢ per point (up to 2¢ with eligible Chase Travel Points Boost offers)"
+      }
+    },
+    {
+      "id": "slate",
+      "name": "Chase Slate",
+      "family": "Slate",
+      "tagline": "A long 0% intro APR to pay off big purchases.",
+      "bestFor": "Paying off a big purchase or balance",
+      "annualFee": 0,
+      "rewardType": null,
+      "earn": {
+        "dining": {
+          "value": null,
+          "label": "N/A: no rewards program"
+        },
+        "groceries": {
+          "value": null,
+          "label": "N/A: no rewards program"
+        },
+        "travel": {
+          "value": null,
+          "label": "N/A: no rewards program"
+        },
+        "everything": {
+          "value": null,
+          "label": "N/A: no rewards program"
+        }
+      },
+      "introApr": {
+        "months": 21,
+        "appliesTo": "purchases and balance transfers",
+        "label": "0% intro APR for 21 months"
+      },
+      "apr": {
+        "min": 18.49,
+        "max": 28.49,
+        "label": "18.49%–28.49% variable"
+      },
+      "foreignTxFee": 3,
+      "welcomeOffer": "0% intro APR for 21 months (balance transfer fee applies)",
+      "creditLevel": "good",
+      "perks": [
+        "Longest 0% intro APR in the lineup (21 months)",
+        "Zero Liability Protection",
+        "No annual fee"
+      ],
+      "art": {
+        "base": "#5B6470",
+        "accent": "#B8C0CA"
+      },
+      "image": "img/cards/slate_dagger_card.png",
+      "productUrl": "https://creditcards.chase.com/balance-transfer-credit-cards/slate",
+      "needsCheck": [],
+      "pointValue": {
+        "baseCents": null,
+        "boostMaxCents": null,
+        "label": "N/A: no rewards program"
+      }
+    }
+  ],
+  "ownedCardOptions": [
+    {
+      "id": "freedom-unlimited",
+      "label": "Chase Freedom Unlimited"
+    },
+    {
+      "id": "freedom-flex",
+      "label": "Chase Freedom Flex"
+    },
+    {
+      "id": "freedom-rise",
+      "label": "Chase Freedom Rise"
+    },
+    {
+      "id": "sapphire-preferred",
+      "label": "Chase Sapphire Preferred"
+    },
+    {
+      "id": "sapphire-reserve",
+      "label": "Chase Sapphire Reserve"
+    },
+    {
+      "id": "slate",
+      "label": "Chase Slate"
+    },
+    {
+      "id": "other",
+      "label": "Another Chase card"
+    }
+  ]
+}
