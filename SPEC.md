@@ -204,7 +204,7 @@ Answers are saved to `sessionStorage` (key `cardmatch:answers:v1`, in-memory fal
 
 ## 6. Branding and disclaimer (live site)
 
-- Replace the Chase logo with a text mark reading **"Card Match · a student concept"**.
+- Header: the text mark **"Card Match · a student concept"** on the left and the **Chase logo** on the right (`img/chase-logo.webp`, 24px tall, a bit shorter than the wordmark; added by Chloe 2026-11-23). The footer disclaimer still states the site isn't affiliated with Chase.
 - Footer line (under Continue, every page): "Student project for IDMT380. Not affiliated with or endorsed by JPMorgan Chase. Card details as of Nov 2026."
 - Card art: **real card images** (added by Chloe 2026-11-23, her call for the class project; the footer disclaimer covers non-affiliation). Each card's `image` field in `data/cards.json` points to a PNG in `img/cards/`. If an image is missing or fails to load, the shared helper `CM.cardArt(card)` (`js/app.js`) falls back to a CSS-generated card from `art.base` / `art.accent`.
 - To swap an image: replace the file in `img/cards/` (or change the `image` path), then re-run `node tools/build-data.js`.
@@ -219,6 +219,6 @@ Answers are saved to `sessionStorage` (key `cardmatch:answers:v1`, in-memory fal
 | 3 | Shell: header, stepper, subheading/Back row, fixed Continue, spacing tokens, per-page guard | ✅ Done 2026-11-23 (built with Start + Step 2) |
 | 4 | Screens: Start ✅ → Status ✅ → Priorities ✅ → Shortlist ✅ → Compare ✅ (3-up) → Best Fit ✅ | ✅ Done 2026-11-23 |
 | 5 | Microinteractions (section 1) | Mostly in: option hover/press/check pop, dropdown slide-in, shortlist deal-in + tag pops, Continue ready pulse, Compare check pops + removed stamp, Decision made stamp, card tilt/shine, Save confetti. ☐ Left: stepper number-to-check morph |
-| 6 | QA in browser at 1440 and 1280 widths, then deploy | ☐ |
+| 6 | QA in browser at 1440 and 1280 widths, then deploy | QA ✅ 2026-11-23: full click-through (No and Yes paths) at 1440×1024 and 1280×800 over a local web server, with refresh, browser Back/Forward, Back links, Start over and deep-link guards; all card images load, no console or HTTP errors (added an inline tab icon to fix the favicon 404). Not built for phones: Compare overflows at 390px wide. ☐ Deploy |
 
 **To save credits:** start a new chat for each phase. Point the new chat at this spec, and send one Figma frame link per screen.

@@ -50,6 +50,8 @@ body {
 }
 .wordmark { font-size: 30px; font-weight: 700; color: var(--text); text-decoration: none; }
 .wordmark__note { font-size: 14px; color: var(--muted-text); }
+/* Chase logo, top right; a bit shorter than the "Card Match" text */
+.site-header__logo { margin-left: auto; align-self: center; height: 24px; width: auto; display: block; }
 
 /* ---------- Page frame ---------- */
 .page {
